@@ -101,5 +101,4 @@ msbuild.wrn
 
 
 
-appsettings.*
-appsettings.Development.json
+launchSettings.json
