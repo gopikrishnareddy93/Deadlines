@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Deadlines.Data.Context
+namespace Deadlines.Context
 {
     public partial class DeadlineDBContext : DbContext
     {
@@ -13,11 +13,11 @@ namespace Deadlines.Data.Context
         {
         }
 
-        public virtual DbSet<Deadlines.Data.Context.Models.Deadlines> Deadlines { get; set; }
+        public virtual DbSet<Models.Deadlines> Deadlines { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Deadlines.Data.Context.Models.Deadlines>(entity =>
+            modelBuilder.Entity<Models.Deadlines>(entity =>
             {
                 entity.ToTable("deadlines");
 

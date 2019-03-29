@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Deadlines]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Name] NCHAR(50) NOT NULL, 
+    [DueDate] DATETIME NOT NULL DEFAULT GETDATE(), 
+    [Description] NCHAR(500) NULL, 
+    [CreateDate] DATETIME NOT NULL DEFAULT GETDATE() 
+)

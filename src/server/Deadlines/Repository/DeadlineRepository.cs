@@ -1,6 +1,6 @@
-﻿using Deadlines.Data.Interfaces;
+﻿using Deadlines.Interfaces;
 
-namespace Deadlines.Data.Repository
+namespace Deadlines.Repository
 {
     public class DeadlineRepository : IDeadlineRepository
     {

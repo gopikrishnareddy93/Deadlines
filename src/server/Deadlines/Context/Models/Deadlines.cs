@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Deadlines.Data.Context.Models
+namespace Deadlines.Context.Models
 {
     public partial class Deadlines
     {

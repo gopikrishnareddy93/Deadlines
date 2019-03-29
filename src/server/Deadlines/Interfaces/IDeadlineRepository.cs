@@ -1,4 +1,4 @@
-﻿namespace Deadlines.Data.Interfaces
+﻿namespace Deadlines.Interfaces
 {
     public interface IDeadlineRepository
     {

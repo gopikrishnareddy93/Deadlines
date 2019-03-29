@@ -102,3 +102,9 @@ msbuild.wrn
 
 
 launchSettings.json
+PublishProfile/
+DeadlinesDB.publish.xml
+
+
+
+

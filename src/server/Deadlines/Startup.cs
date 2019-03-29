@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Deadlines.Data.Context;
-using Deadlines.Data.Interfaces;
-using Deadlines.Data.Repository;
+using Deadlines.Context;
+using Deadlines.Interfaces;
+using Deadlines.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -42,7 +42,7 @@ namespace Deadlines
 
             services.AddSingleton(Configuration);
             services.AddDbContext<DeadlineDBContext>(options => options
-                    .UseMySql(connectionString)
+                .UseSqlServer(connectionString)
             );
 
             services.AddTransient<IDeadlineRepository, DeadlineRepository>();
@@ -84,7 +84,7 @@ namespace Deadlines
 
             app.UseMvc();
 
-            var dbContext = (DeadlineDBContext)serviceProvider.GetService(typeof(DeadlineDBContext));
+            var dbContext = (DeadlineDBContext) serviceProvider.GetService(typeof(DeadlineDBContext));
 
             if (!CheckDatabaseConnection(dbContext))
             {
@@ -92,8 +92,9 @@ namespace Deadlines
             }
 
             m_Logger.Info("ContactCenterAPI started!!!");
-            m_Logger.Info("ContactCenter Connection Info -- {0}, {1}", contact_center_connection_array?.FirstOrDefault(x => x.Contains("database")), contact_center_connection_array?.FirstOrDefault(x => x.Contains("server")));
-
+            m_Logger.Info("ContactCenter Connection Info -- {0}, {1}",
+                contact_center_connection_array?.FirstOrDefault(x => x.Contains("database")),
+                contact_center_connection_array?.FirstOrDefault(x => x.Contains("server")));
         }
 
         private static bool CheckDatabaseConnection(DbContext dbContext)
@@ -130,7 +131,6 @@ namespace Deadlines
 
             config.AddTarget(fileTarget);
             config.AddRuleForAllLevels(fileTarget);
-
 
 
             LogManager.Configuration = config;
