@@ -102,9 +102,8 @@ msbuild.wrn
 
 
 launchSettings.json
-PublishProfile/
+PublishProfiles/
 DeadlinesDB.publish.xml
-
-
-
+*.dbmdl
+*.jfm
 

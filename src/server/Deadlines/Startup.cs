@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using Deadlines.Context;
 using Deadlines.Interfaces;
+using Deadlines.Middleware;
 using Deadlines.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +28,7 @@ namespace Deadlines
             Configuration = configuration;
         }
 
-        private static readonly Logger m_Logger = LogManager.GetLogger("ContactCenter");
+        private static readonly Logger m_Logger = LogManager.GetLogger("Deadlines");
         private static string connectionString;
         public IConfiguration Configuration { get; }
 
@@ -82,6 +84,7 @@ namespace Deadlines
 
             var contact_center_connection_array = connectionString?.Split(";");
 
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc();
 
             var dbContext = (DeadlineDBContext) serviceProvider.GetService(typeof(DeadlineDBContext));

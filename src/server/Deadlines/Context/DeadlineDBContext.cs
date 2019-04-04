@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Deadlines.Context
 {
@@ -13,32 +14,35 @@ namespace Deadlines.Context
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("appDBString") ?? throw new InvalidOperationException("Couldn't find the appDBString connection string"));
+            }
+        }
+
         public virtual DbSet<Models.Deadlines> Deadlines { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+
             modelBuilder.Entity<Models.Deadlines>(entity =>
             {
-                entity.ToTable("deadlines");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+                    .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasColumnName("description")
-                    .HasColumnType("varchar(500)");
+                entity.Property(e => e.Description).HasMaxLength(500);
 
                 entity.Property(e => e.DueDate)
-                    .HasColumnName("due_date")
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
         }
     }

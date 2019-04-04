@@ -15,3 +15,13 @@ insert into Deadlines
 (Name,DueDate,Description)
 values
 ('test1', '05/25/2019', 'test description');
+
+
+CREATE USER [deadlinesAppUser] FOR LOGIN [deadlinesAppUser]
+GO
+
+EXEC sp_addrolemember N'db_datareader', N'deadlinesAppUser'  
+GO  
+
+EXEC sp_addrolemember N'db_datawriter', N'deadlinesAppUser'  
+GO  
